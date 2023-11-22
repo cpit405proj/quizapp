@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2023 at 10:58 PM
+-- Generation Time: Nov 22, 2023 at 10:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -45,6 +45,7 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `user_role` enum('student','teacher','admin') NOT NULL DEFAULT 'student',
   `registration_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -52,8 +53,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `registration_date`) VALUES
-(1, 'nawaf', 'nawaf@nawaf.com', '$2y$10$C35QExYDBSf5OslKRtSJfurUgampBTGg3LvRzW02QsHLW/TzSSDMi', '2023-11-21 21:57:22');
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `user_role`, `registration_date`) VALUES
+(1, 'nawaf', 'nawaf@nawaf.com', '$2y$10$C35QExYDBSf5OslKRtSJfurUgampBTGg3LvRzW02QsHLW/TzSSDMi', 'student', '2023-11-21 21:57:22');
 
 --
 -- Indexes for dumped tables

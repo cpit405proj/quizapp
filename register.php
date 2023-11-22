@@ -2,25 +2,29 @@
 require_once 'config/database.php';
 require_once 'template/header.php';
 
-if(isset($_SESSION["user_id"])){
+if (isset($_SESSION["user_id"])) {
     header("Location: index.php");
     exit(); 
 }
+
 // Handle registration
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newUsername = $_POST['username'];
     $newEmail = $_POST['email'];
     $newPassword = $_POST['password'];
+    
+    // Default role for new users (adjust as needed)
+    $defaultUserRole = 'student';
 
     // Check if the username or email already exists
     $checkQuery = "SELECT * FROM users WHERE username='$newUsername' OR email='$newEmail'";
     $checkResult = $mysqli->query($checkQuery);
 
     if ($checkResult->num_rows == 0) {
-        //Read the diffrences between bcrypt and default
+        // Read the differences between bcrypt and default
         $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
 
-        $insertQuery = "INSERT INTO users (username, email, password) VALUES ('$newUsername', '$newEmail', '$hashedPassword')";
+        $insertQuery = "INSERT INTO users (username, email, password, user_role) VALUES ('$newUsername', '$newEmail', '$hashedPassword', '$defaultUserRole')";
         if ($mysqli->query($insertQuery) === TRUE) {
             header("Location: login.php");
             exit(); 
@@ -45,3 +49,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php 
 require_once 'template/footer.php';
+?>
